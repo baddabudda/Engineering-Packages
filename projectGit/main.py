@@ -118,7 +118,7 @@ def graphByPeriod(data, st, en, timeTicks=100, minPeriods=2, maxPeriods=20, doAn
     dates_slider.on_changed(update)
     period_slider.on_changed(update)
 
-    plt.show()
+#     plt.show()
 
 # ===== Ira's part: Общие Распределения Оценок По Каждому Показателю
 def RatingGraphs(data, descriptions):
@@ -141,7 +141,7 @@ def RatingGraphs(data, descriptions):
         ax.legend(labels=labels, loc=8, fontsize=8, bbox_to_anchor=(0.5, -0.4))
         ax.set_title(row['name'].replace(' ', '\n', 2), y=0.9)
     fig.tight_layout()
-    plt.show()
+#     plt.show()
 
 def Rtype_score(data):
     numTypes = 13
@@ -182,7 +182,7 @@ def ComparisonPerYear(data, descriptions):
     legend = ' '.join( [ f'{i + 1} - {types[i]};' for i in range(len(types)) ] )
 
     plt.figtext(0.5, 0.01, legend, wrap=True, horizontalalignment='center', fontsize=10)
-    plt.show()
+#     plt.show()
 
 # ===== Ira's part: Рейтинг Преподавательского Состава (2012 - 2022)
 def GlobalRating(data):
@@ -214,7 +214,7 @@ def GlobalRating(data):
             xytext=(0, 15),
             ha='center'
         )
-    plt.show()
+#     plt.show()
 
 def staffGroups(data):
     slice_ = data[['staff', 'rtype', 'rvalue']]
@@ -296,7 +296,7 @@ def GraphbyStaffGroups(data, byType=[1]*13, low=2.5, high=4.5):
     # Call resetSlider function when clicked on button
     button.on_clicked(readySlider)
     CriteriaSlader.on_changed(readySlider)
-    plt.show()
+#     plt.show()
 
 
 if __name__ == '__main__':
@@ -309,8 +309,10 @@ if __name__ == '__main__':
     ratingsdecsription = pd.read_csv('ratingsdecsription.csv', names=headersRD, sep=';', encoding='utf-16')[1:]
     ratingsdecsription = ratingsdecsription.astype({"rtype": int, "name": str, "descr": str})
     graphByPeriod(data=staffmarks, st=parseDate('2012-01-01'), en=parseDate('2022-12-31'))
-#     RatingGraphs(staffmarks, ratingsdecsription)
-#     ComparisonPerYear(data=staffmarks, descriptions=ratingsdecsription)
-#     GlobalRating(data=staffmarks)
+    RatingGraphs(staffmarks, ratingsdecsription)
+    ComparisonPerYear(data=staffmarks, descriptions=ratingsdecsription)
+    GlobalRating(data=staffmarks)
     GraphbyStaffGroups(data=staffmarks)
+    
+    plt.show()
 
