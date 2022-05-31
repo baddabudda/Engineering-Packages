@@ -1,16 +1,52 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-titanic = pd.read_csv("titanic.csv", sep = ",")
-print(titanic["Age"].head(5))
-print(titanic[["Age", "Sex"]].head(5))
-titanic["Realtives"] = titanic["SibSp"] + titanic["Parch"]
-print(len(titanic[titanic["Realtives"] != 0]))
-print(len(titanic.loc[(titanic["Embarked"]=='S'),"PassengerId"]))
-print(f"Survived:", len(titanic[titanic["Survived"] == 1]))
-print(f"Not survived:", len(titanic[titanic["Survived"] == 0]))
+df = pd.read_csv('titanic.csv')
 
-titanic["Pclass"] = titanic["Pclass"].map(lambda x: "Elite" if x == 1 else ("Middle" if x == 2 else "Prol"))
+classes = ['cool dudes','middle ish','pathetic']
+fig = plt.figure('every')
 
-titanic["Fare_bin"] = "Expensive"
-titanic.loc[(titanic.Fare < 20), "Fare_bin"] = "Cheap"
-print(titanic)
+classesCount = df['Pclass'].value_counts().sort_index()
+plt.subplot(1, 3, 1)
+plt.bar(range(len(classesCount)), classesCount.values, tick_label = classes)
+plt.title('all', fontsize=10)
+
+classesCountAlive = df['Pclass'].where(df['Survived'] == 1).value_counts().sort_index()
+plt.subplot(1, 3, 2)
+plt.bar(range(len(classesCountAlive)), classesCountAlive.values, tick_label = classes)
+plt.title('alive', fontsize=10)
+
+classesCountDead = df['Pclass'].where(df['Survived'] == 0).value_counts().sort_index()
+plt.subplot(1, 3, 3)
+plt.bar(range(len(classesCountDead)), classesCountDead.values, tick_label = classes)
+plt.title('dead', fontsize=10)
+
+fig = plt.figure('gender')
+genders = df['Sex'].value_counts().sort_index()
+plt.subplot(1, 3, 1)
+genders.plot.bar()
+plt.xticks(rotation=60, fontsize=10)
+plt.title('genders', fontsize=10)
+
+genders = df['Sex'].where(df['Survived'] == 1).value_counts().sort_index()
+plt.subplot(1, 3, 2)
+genders.plot.bar()
+plt.xticks(rotation=60, fontsize=10)
+plt.title('genders alive', fontsize=10)
+
+genders = df['Sex'].where(df['Survived'] == 0).value_counts().sort_index()
+plt.subplot(1, 3, 3)
+genders.plot.bar()
+plt.xticks(rotation=60, fontsize=10)
+plt.title('genders dead', fontsize=10)
+
+fig, axs = plt.subplots(1, 1)
+axs.remove()
+genders = [0] * 2
+genders[0] = df['Sex'].where(df['Survived'] == 0).value_counts().sort_index()
+genders[1] = df['Sex'].where(df['Survived'] == 1).value_counts().sort_index()
+plt.table(cellText=genders, loc = 'center', rowLabels = ['male','female'], colLabels = ['alive','dead'])
+
+
+plt.show()
