@@ -1,6 +1,7 @@
 # Engineering-Packages
 Задания по дисциплине "Введение в современные пакеты научных и инженерных вычислений" (2 курс, 4 семестр)
 - **projectGit**: групповой проект
+for presentation see: https://docs.google.com/presentation/d/1Nodt82KWgxfu9L0mthr5BD9AAi3D90CK/edit?usp=sharing&ouid=100348698120326609103&rtpof=true&sd=true
 - Bisect_Newton: нахождение решения f(x) = 0 по методу половинного деления и методу Ньютона в Matlab
 - Data_18032020: импортирование и работа с .xlsx-файлами в Matlab
 - animals: работа со строками в Python
