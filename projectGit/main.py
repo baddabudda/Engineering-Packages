@@ -308,9 +308,9 @@ if __name__ == '__main__':
     headersRD = ["rtype", "name", "descr"]
     ratingsdecsription = pd.read_csv('ratingsdecsription.csv', names=headersRD, sep=';', encoding='utf-16')[1:]
     ratingsdecsription = ratingsdecsription.astype({"rtype": int, "name": str, "descr": str})
-    graphByPeriod(data=staffmarks, st=parseDate('2012-01-01'), en=parseDate('2022-12-31'))      # Lena's
-    RatingGraphs(staffmarks, ratingsdecsription)
-    ComparisonPerYear(data=staffmarks, descriptions=ratingsdecsription)
-    GlobalRating(data=staffmarks)
-    GraphbyStaffGroups(data=staffmarks)     # Lena's
+    graphByPeriod(data=staffmarks, st=parseDate('2012-01-01'), en=parseDate('2022-12-31'))
+#     RatingGraphs(staffmarks, ratingsdecsription)
+#     ComparisonPerYear(data=staffmarks, descriptions=ratingsdecsription)
+#     GlobalRating(data=staffmarks)
+    GraphbyStaffGroups(data=staffmarks)
 
